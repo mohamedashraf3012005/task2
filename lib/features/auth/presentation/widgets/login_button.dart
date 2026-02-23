@@ -2,12 +2,13 @@ import 'package:flutter/material.dart';
 
 class LoginButton extends StatelessWidget {
   final String? title;
-  const LoginButton({super.key, required this.title});
+  final VoidCallback? onPressed;
+  const LoginButton({super.key, required this.title, required this.onPressed});
 
   @override
   Widget build(BuildContext context) {
     return MaterialButton(
-      onPressed: () {},
+      onPressed: onPressed,
       minWidth: 20,
       color: Colors.blue,
       textColor: Colors.white,
