@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:task2/features/auth/presentation/screens/login_screen.dart';
-import 'package:task2/features/auth/presentation/screens/onboarding_screen.dart';
-import 'package:task2/features/auth/presentation/screens/signup_screen.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:task2/features/on_boarding/presentation/screens/onboarding_screen.dart';
+import 'package:task2/features/sign_in/presentation/screens/login_screen.dart';
+import 'package:task2/features/sign_up/presentation/screens/signup_screen.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -23,7 +24,7 @@ class MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return const MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: SignUpScreen(),
+      home: LoginScreen(),
     );
   }
 }

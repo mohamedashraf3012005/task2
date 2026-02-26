@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:task2/features/auth/presentation/widgets/connect_with_button.dart';
-import 'package:task2/features/auth/presentation/widgets/on_boarding_header.dart';
-import 'package:task2/features/auth/presentation/widgets/sign_up_button.dart';
+import 'package:task2/features/on_boarding/presentation/widgets/connect_with_button.dart';
+import 'package:task2/features/on_boarding/presentation/widgets/on_boarding_header.dart';
+import 'package:task2/features/on_boarding/presentation/widgets/sign_up_button.dart';
 
 class OnboardingScreen extends StatelessWidget {
   const OnboardingScreen({super.key});
