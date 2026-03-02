@@ -4,9 +4,9 @@ import 'package:task2/features/on_boarding/presentation/widgets/contact_button.d
 import 'package:task2/features/on_boarding/presentation/widgets/login_button.dart';
 import 'package:task2/features/on_boarding/presentation/widgets/on_boarding_header.dart';
 import 'package:task2/features/on_boarding/presentation/widgets/text_input.dart';
-import 'package:task2/features/sign_in/presentation/screens/login_screen.dart';
-import 'package:task2/features/sign_up/presentation/cubit/signup_cubit.dart';
-import 'package:task2/features/sign_up/presentation/cubit/signup_state.dart';
+import 'package:task2/features/auth/sign_in/presentation/screens/login_screen.dart';
+import 'package:task2/features/auth/sign_up/presentation/cubit/signup_cubit.dart';
+import 'package:task2/features/auth/sign_up/presentation/cubit/signup_state.dart';
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({super.key});
