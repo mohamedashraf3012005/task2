@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 
 class CardDiary extends StatelessWidget {
   String title;
-  String category;
+  String? category;
   String date;
   Color color;
   CardDiary({
     super.key,
     required this.title,
-    required this.category,
+    this.category,
     required this.color,
     required this.date,
   });
@@ -47,7 +47,7 @@ class CardDiary extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Text(
-                category,
+                category!,
                 style: TextStyle(
                   fontSize: 18,
                   color: Colors.black,

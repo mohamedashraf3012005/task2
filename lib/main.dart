@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:task2/features/note/presentation/screens/add_edit_note_page.dart';
+import 'package:task2/features/note/presentation/screens/diary_page.dart';
 import 'package:task2/features/note/presentation/screens/folder_detail_page.dart';
 import 'package:task2/features/note/presentation/screens/my_folders_page.dart';
 import 'package:task2/features/on_boarding/presentation/screens/onboarding_screen.dart';
@@ -26,7 +28,7 @@ class MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return const MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: FolderDetailPage(),
+      home: AddEditNotePage(),
     );
   }
 }

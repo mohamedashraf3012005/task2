@@ -18,7 +18,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     return AppBar(
       leading: IconButton(icon: Icon(firstIcon), onPressed: () {}),
-      titleSpacing: 95,
+      titleSpacing: 65,
       title: Text(
         title,
         style: TextStyle(
