@@ -113,4 +113,14 @@ class NoteCubit extends Cubit<NoteState> {
       emit(NoteError(e.toString()));
     }
   }
+
+  Future<void> deleteFolder(String folderId) async {
+    emit(NoteLoading());
+    try {
+      await repository.deleteFolder(folderId);
+      getNotes();
+    } catch (e) {
+      emit(NoteError(e.toString()));
+    }
+  }
 }

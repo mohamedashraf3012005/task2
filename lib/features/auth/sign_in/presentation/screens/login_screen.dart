@@ -30,10 +30,8 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => LoginCubit(),
-      child: BlocConsumer<LoginCubit, LoginState>(
-        listener: (context, state) {
+    return BlocConsumer<LoginCubit, LoginState>(
+      listener: (context, state) {
           if (state is LoginSuccess) {
             ScaffoldMessenger.of(
               context,
@@ -41,7 +39,7 @@ class _LoginScreenState extends State<LoginScreen> {
             
             Navigator.pushAndRemoveUntil(
               context,
-              MaterialPageRoute(builder: (context) => const MyFoldersPage()),
+              MaterialPageRoute(builder: (context) => MyFoldersPage()),
               (route) => false,
             );
           } else if (state is LoginError) {
@@ -165,7 +163,6 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
           );
         },
-      ),
-    );
+      );
   }
 }

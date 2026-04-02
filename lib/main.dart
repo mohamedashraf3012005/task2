@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:task2/features/auth/sign_in/presentation/cubit/login_cubit.dart';
 import 'package:task2/features/note/data/datasources/note_remote_data_source.dart';
 import 'package:task2/features/note/data/repositories/note_repository_impl.dart';
 import 'package:task2/features/note/presentation/cubit/note_cubit.dart';
@@ -26,6 +27,7 @@ class MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
+        BlocProvider(create: (context) => LoginCubit()),
         BlocProvider(
           create: (context) => NoteCubit(
             repository: NoteRepositoryImpl(
@@ -38,9 +40,7 @@ class MainApp extends StatelessWidget {
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        home: Supabase.instance.client.auth.currentSession == null
-            ? const OnboardingScreen()
-            : const MyFoldersPage(),
+        home: OnboardingScreen(),
       ),
     );
   }

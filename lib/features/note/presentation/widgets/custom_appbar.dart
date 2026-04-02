@@ -3,24 +3,25 @@ import 'package:flutter/material.dart';
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
   final IconData? firstIcon;
-  final IconData? secondIcon;
+  final List<Widget>? actions;
   final Color? colorText;
   final VoidCallback? onFirstIconPressed;
-  final VoidCallback? onSecondIconPressed;
 
   const CustomAppBar({
     super.key,
     required this.title,
     this.firstIcon,
-    this.secondIcon,
+    this.actions,
     this.colorText,
     this.onFirstIconPressed,
-    this.onSecondIconPressed,
   });
 
   @override
   Widget build(BuildContext context) {
     return AppBar(
+      centerTitle: true,
+      elevation: 0,
+      backgroundColor: Colors.transparent,
       leading: firstIcon != null
           ? IconButton(
               icon: Icon(firstIcon),
@@ -34,13 +35,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
           color: colorText ?? Colors.black,
         ),
       ),
-      actions: [
-        if (secondIcon != null)
-          IconButton(
-            icon: Icon(secondIcon),
-            onPressed: onSecondIconPressed ?? () {},
-          ),
-      ],
+      actions: actions,
     );
   }
 

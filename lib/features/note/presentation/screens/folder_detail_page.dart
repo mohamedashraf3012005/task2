@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:task2/features/note/data/models/note_model.dart';
 import 'package:task2/features/note/presentation/cubit/note_cubit.dart';
 import 'package:task2/features/note/presentation/cubit/note_state.dart';
 import 'package:task2/features/note/presentation/widgets/card_diary.dart';
@@ -12,23 +13,57 @@ class FolderDetailPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: CustomAppBar(
-        title: folderName,
-        firstIcon: Icons.arrow_back,
-        secondIcon: Icons.more_vert,
-        colorText: const Color(0xff002D95),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16),
-        child: BlocBuilder<NoteCubit, NoteState>(
-          builder: (context, state) {
-            if (state is NotesLoaded) {
-              final folderNotes = state.notes.where((n) => n.folder == folderName).toList();
-              return Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const SizedBox(height: 12),
+    return BlocBuilder<NoteCubit, NoteState>(
+      builder: (context, state) {
+        String? folderId;
+        if (state is NotesLoaded) {
+          try {
+            folderId = state.folders.firstWhere((f) => f.name == folderName).id;
+          } catch (_) {}
+        }
+
+        final folderNotes = state is NotesLoaded
+            ? state.notes.where((n) => n.folder == folderName).toList()
+            : <NoteModel>[];
+
+        return Scaffold(
+          appBar: CustomAppBar(
+            title: folderName,
+            firstIcon: Icons.arrow_back,
+            actions: [
+              if (folderId != null)
+                PopupMenuButton<String>(
+                  icon: const Icon(Icons.more_vert, color: Color(0xff002D95)),
+                  onSelected: (value) {
+                    if (value == 'delete') {
+                      _showDeleteFolderDialog(context, folderId!, folderName);
+                    }
+                  },
+                  itemBuilder: (context) => [
+                    const PopupMenuItem(
+                      value: 'delete',
+                      child: Row(
+                        children: [
+                          Icon(Icons.delete_outline, color: Colors.red),
+                          SizedBox(width: 8),
+                          Text('Delete Folder', style: TextStyle(color: Colors.red)),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+            ],
+            colorText: const Color(0xff002D95),
+          ),
+          body: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const SizedBox(height: 12),
+                if (state is NoteLoading)
+                  const Expanded(child: Center(child: CircularProgressIndicator()))
+                else ...[
                   AddNewNote(title: folderName, subtitle: "${folderNotes.length} Notes"),
                   const SizedBox(height: 24),
                   const Text(
@@ -59,16 +94,40 @@ class FolderDetailPage extends StatelessWidget {
                           ),
                   ),
                 ],
-              );
-            }
-            return const Center(child: CircularProgressIndicator());
-          },
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {},
-        backgroundColor: const Color(0xff1660FB),
-        child: const Icon(Icons.add, color: Colors.white),
+              ],
+            ),
+          ),
+          floatingActionButton: FloatingActionButton(
+            onPressed: () {},
+            backgroundColor: const Color(0xff1660FB),
+            child: const Icon(Icons.add, color: Colors.white),
+          ),
+        );
+      },
+    );
+  }
+
+  void _showDeleteFolderDialog(BuildContext context, String id, String title) {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text('Delete Folder'),
+        content: Text('Are you sure you want to delete "$title"?'),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: const Text('Cancel'),
+          ),
+          TextButton(
+            onPressed: () {
+              context.read<NoteCubit>().deleteFolder(id);
+              Navigator.pop(context); // close dialog
+              Navigator.pop(context); // go back to list
+            },
+            style: TextButton.styleFrom(foregroundColor: Colors.red),
+            child: const Text('Delete'),
+          ),
+        ],
       ),
     );
   }

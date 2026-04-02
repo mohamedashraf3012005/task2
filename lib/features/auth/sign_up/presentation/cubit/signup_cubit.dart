@@ -38,6 +38,7 @@ class SignupCubit extends Cubit<SignupState> {
       await supabase.auth.signUp(
         email: email.trim(),
         password: password.trim(),
+        data: {'name': name},
       );
 
       emit(SignupSuccess());

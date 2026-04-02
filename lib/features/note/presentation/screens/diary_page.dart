@@ -17,15 +17,19 @@ class DiaryPage extends StatelessWidget {
       appBar: CustomAppBar(
         title: note.folder,
         firstIcon: Icons.arrow_back,
-        secondIcon: Icons.edit,
-        onSecondIconPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => AddEditNotePage(initialNote: note),
-            ),
-          );
-        },
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.edit, color: Colors.black),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => AddEditNotePage(initialNote: note),
+                ),
+              );
+            },
+          ),
+        ],
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
